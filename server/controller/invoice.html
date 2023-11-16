@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+    }
+
+    .invoice-details {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+
+    .thank-you {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Invoice</h2>
+    <img src="https://res.cloudinary.com/dj8z6xx94/image/upload/v1699510498/final_xvkrmn.png" alt="Random Image">
+    <p>Dear {{recipientName}},</p>
+    <p>Attached is your invoice for the recent services provided.</p>
+
+    <div class="invoice-details">
+      <p><strong>Invoice Number:</strong> {{invoiceNumber}}</p>
+     <p>Our Empoyee willl be there at your doorstep for the service</p>
+      <p><strong>Amount Paid:</strong> ₹{{amount}}</p>
+    </div>
+
+    <p class="thank-you">Thank you for choosing our services. Please let us know if you have any questions or concerns.</p>
+
+    <p>Best regards,<br>Servo Team</p>
+  </div>
+</body>
+
+</html>
