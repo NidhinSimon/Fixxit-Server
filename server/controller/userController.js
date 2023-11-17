@@ -108,6 +108,29 @@ const verifyGoogle = async (req, res) => {
 }
 
 
+const removeWishlist=async(req,res)=>{
+  console.log("ssss")
+  const {userId,itemId}=req.params
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+  
+    user.wishlist.pull(itemId);
+    await user.save();
+
+    res.json(user.wishlist);
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+
+
   const verifyFb = async (req, res) => {
     console.log("-------------------------------------------------------------------------------------------------------------------------", req.body);
     const { accessToken } = req.body; 
@@ -537,6 +560,7 @@ export {
   getWishlist,
   WalletHistory,
   verifyGoogle,
-  verifyFb
+  verifyFb,
+  removeWishlist
 
 }

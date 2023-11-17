@@ -23,7 +23,8 @@ import {
     getWishlist,
     WalletHistory,
     verifyGoogle,
-    verifyFb
+    verifyFb,
+    removeWishlist
 
 } from '../controller/userController.js'
 import { protect } from '../middleware/authMiddleware.js'
@@ -51,6 +52,7 @@ router.post('/reportProvider/:id', reportProvider)
 router.get('/addresses/:id', getAddress)
 router.post('/wishlist/add/:userId',addwishlist)
 router.get('/wishlist/:userId',getWishlist)
+router.delete('/wishlist/:userId/:itemId',removeWishlist)
 
 
 router.get('/wallet-history/:userId',protect,WalletHistory)
