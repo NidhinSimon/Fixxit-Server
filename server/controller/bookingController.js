@@ -34,6 +34,7 @@ export const hai = (i) => {
 
 
 const createOrder = async (customer, data, io,  ) => {
+    console.log("insideeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee   webhoooooooooooooooooooookkkkkkkkkkkkkk")
     if (customer && customer.metadata && customer.metadata.cart) {
         try {
             const items = JSON.parse(customer.metadata.cart);
