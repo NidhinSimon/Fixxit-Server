@@ -231,8 +231,8 @@ export const checkoutController = async (req, res) => {
                     quantity: 1,
                 },
             ],
-            success_url: 'http://localhost:3000/success',
-            cancel_url: 'http://localhost:3000/cancel',
+            success_url: 'https://fixxit-user.vercel.app/success',
+            cancel_url: 'https://fixxit-user.vercel.app/cancel',
         });
 
         res.json({ url: session.url });
