@@ -36,10 +36,9 @@ const server = app.listen(port, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "https://fixxit-user.vercel.app",
   }
 });
-
 
 
 

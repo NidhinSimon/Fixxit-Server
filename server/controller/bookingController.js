@@ -113,7 +113,7 @@ const createOrder = async (customer, data, io,  ) => {
                 (provider) => provider.distance <= maxDistance
             );
 
-            // console.log(nearbyProviders, ">>>>>>>>>>>>>>>..")
+            console.log(nearbyProviders, ">>>>>>>>>>>>>>>..")
 
             // console.log(newBooking, "Booking created");
 
