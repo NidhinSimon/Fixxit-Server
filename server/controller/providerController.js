@@ -239,7 +239,7 @@ const getrequest = async (req, res) => {
 
 
 const acceptBooking = async (req, res) => {
-    console.log('LLL')
+    console.log('LLL',req.body)
     const { id } = req.params;
     const { providerId } = req.body;
 
@@ -256,7 +256,7 @@ const acceptBooking = async (req, res) => {
         }
 
         if (booking.status === 'accepted') {
-            return res.status(400).json({ success: false, message: 'Booking is already accepted' });
+            res.json({ success: false, message: 'Booking is already accepted' });
         }
 
         booking.status = 'accepted';
