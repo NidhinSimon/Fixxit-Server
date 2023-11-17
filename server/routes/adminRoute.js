@@ -3,6 +3,7 @@ import { adminLogin,addservice, allservice, editservice ,allusers, deleteservice
 import {addcategory,deleteCategory,editcategory,getcategories,} from '../controller/categoryController.js'
 import { couponadd, getcoupon,editcoupon ,editableCoupon,deleteCoupon} from '../controller/couponController.js'
 import { protect } from '../middleware/authMiddleware.js'
+
 const adminRoute=express.Router()
 
 adminRoute.post('/adminlogin',adminLogin)
@@ -12,7 +13,7 @@ adminRoute.post('/addservice',addservice)
 adminRoute.put('/editcategory/:id',editcategory)
 adminRoute.get('/services',allservice)
 adminRoute.put('/editservice/:id',editservice)
-adminRoute.get('/users',allusers)
+adminRoute.get('/users',protect,allusers)
 adminRoute.delete('/services/:id',deleteservices)
 adminRoute.delete('/category/:id',deleteCategory)
 adminRoute.put('/userblock/:id',blockUser)
