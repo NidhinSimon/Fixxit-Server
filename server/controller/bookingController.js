@@ -249,6 +249,8 @@ const endpointSecret = process.env.ENDPOINTSECRET
 export const webhook = async (req, res) => {
 
     const sig = req.headers['stripe-signature'];
+    console.log(req.rawBody,"=====================",endpointSecret,"---")
+    
 
     try {
 
