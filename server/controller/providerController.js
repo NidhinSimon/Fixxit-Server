@@ -264,7 +264,7 @@ const acceptBooking = async (req, res) => {
         const b = await booking.save();
         console.log(b, "::>>::>>::>>")
         const provider = await Provider.findById(providerId)
-
+console.log(provider,".......................")
 
 
         io.emit('booking-accepted', {
