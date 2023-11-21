@@ -68,6 +68,14 @@ const createOrder = async (customer, data, io,  ) => {
 
             const newBooking = await newOrder.save();
 
+            const newRequest = new Request({
+                bookingId: newBooking._id, 
+                userId: customer.metadata.userId,
+               
+            });
+        
+            await newRequest.save();
+
 
          
 
@@ -120,7 +128,7 @@ const createOrder = async (customer, data, io,  ) => {
 
             nearbyProviders.forEach((provider) => {
                 console.log("ISNIDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", `${provider._id}`);
-                io.to(`provider_${provider._id}`).emit('new-booking-for-provider', { booking: newBooking });
+  io.to(`provider_${provider._id}`).emit('new-booking-for-provider', { request: newRequest });
             });
             cron.schedule('*/10 * * * *', async () => {
                 const currentTime = Date.now();

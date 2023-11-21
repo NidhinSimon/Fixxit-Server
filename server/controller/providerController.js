@@ -9,6 +9,7 @@ import Service from "../models/serviceModel.js";
 import Admin from "../models/adminModel.js";
 import WalletHistory from "../models/wallerHistoryModal.js";
 import { generateEmployeeToken } from "../utils/generateToke.js";
+import Request from "../models/RequestModel.js";
 let io;
 
 
@@ -353,6 +354,18 @@ const cancelBooking = async (req, res) => {
     }
 };
 
+const DbBooking=async(req,res)=>{
+    const { providerId } = req.params;
+
+    try {
+      const requests = await Request.find({ providerId });
+      res.json(requests);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 
 const serviceName = async (req, res) => {
     const { id } = req.params;
@@ -493,5 +506,6 @@ export {
     cancelBooking,
     completeBooking,
     getallStats,
-    Logoutprovider
+    Logoutprovider,
+    DbBooking
 }

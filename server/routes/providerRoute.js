@@ -3,7 +3,7 @@ import express from 'express'
 
 
 
-import { registerProvider, getProviders, verifyProvider, rejectProvider, loginProvider, allProviders,serviceName, providerBlock, unblock, checkprovider, getrequest, acceptBooking,getUpcoming ,getAllBookings,cancelBooking,completeBooking,getallStats, Logoutprovider} from '../controller/providerController.js'
+import { registerProvider, getProviders, verifyProvider, rejectProvider, loginProvider, allProviders,serviceName, providerBlock, unblock, checkprovider, getrequest, acceptBooking,getUpcoming ,getAllBookings,cancelBooking,completeBooking,getallStats, Logoutprovider,DbBooking} from '../controller/providerController.js'
 
 
 const serviceRoute = express.Router()
@@ -26,6 +26,7 @@ serviceRoute.get('/upcoming/:id',getUpcoming)
 serviceRoute.get('/allbookings/:id',getAllBookings)
 serviceRoute.post('/cancel/:id',cancelBooking)
 serviceRoute.get('/servicename/:id',serviceName)
+serviceRoute.get('/requests/:providerId',DbBooking)
 
 serviceRoute.get("/getstatistics/:id",getallStats)
 serviceRoute.post("/logout",Logoutprovider)
