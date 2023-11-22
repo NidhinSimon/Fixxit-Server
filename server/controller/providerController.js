@@ -367,7 +367,7 @@ const DbBooking=async(req,res)=>{
             providerIds: providerId
            
         }) 
-        .populate('booking')
+        .populate('bookingId')
         .exec()
    
           console.log(pendingRequests,'-------------------pendingRequests-------------------------------------------')
