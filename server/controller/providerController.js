@@ -357,11 +357,11 @@ const cancelBooking = async (req, res) => {
 const DbBooking=async(req,res)=>{
     console.log("djdjdjdgdhgdhgdhgdhgdhgdhgdhgdhg")
     const { providerId } = req.params;
-    console.log("djdjdjdgdhgdhgdhgdhgdhgdhgdhgdhg",providerId)
-
+    console.log("........................................",providerId)
+    console.log("insideb tryyyyy")
     try {
        
-      console.log("insideb tryyyyy")
+      
         const pendingRequests = await Request.find({ status: 'pending', providerId })
           .populate('booking')
           .exec();
