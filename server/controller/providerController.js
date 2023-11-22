@@ -355,6 +355,7 @@ const cancelBooking = async (req, res) => {
 };
 
 const DbBooking=async(req,res)=>{
+    console.log("djdjdjdgdhgdhgdhgdhgdhgdhgdhgdhg")
     const { providerId } = req.params;
 
     try {

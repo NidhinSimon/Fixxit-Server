@@ -19,6 +19,7 @@ import { dirname } from 'path';
 
 
 import WalletHistory from '../models/wallerHistoryModal.js'
+import Request from '../models/RequestModel.js';
 
 const stripe = new Stripe(process.env.SECRET_STRIPE_KEY);
 
@@ -74,7 +75,8 @@ const createOrder = async (customer, data, io,  ) => {
                
             });
         
-            await newRequest.save();
+            const req=await newRequest.save();
+            console.log(req,"request model saved")
 
 
          
