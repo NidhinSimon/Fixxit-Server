@@ -360,9 +360,13 @@ const DbBooking=async(req,res)=>{
     console.log("djdjdjdgdhgdhgdhgdhgdhgdhgdhgdhg",providerId)
 
     try {
-      const requests = await Request.find({ providerId });
-      console.log(requests,'===')
-      res.json(requests);
+       
+      
+        const pendingRequests = await Request.find({ status: 'pending', providerId })
+          .populate('booking')
+          .exec();
+    
+        res.json(pendingRequests);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
