@@ -35,7 +35,7 @@ export const hai = (i) => {
 
 
 const createOrder = async (customer, data, io,  ) => {
-    console.log("insideeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee   webhoooooooooooooooooooookkkkkkkkkkkkkk")
+   
     if (customer && customer.metadata && customer.metadata.cart) {
         try {
             const items = JSON.parse(customer.metadata.cart);
@@ -43,7 +43,7 @@ const createOrder = async (customer, data, io,  ) => {
             const serviceNames = items.map(item => item.name);
             const otp = otpGenerator.generate(6, { digits: true, alphabets: false, upperCase: false, specialChars: false,   });
 
-            console.log(otp, "~~~~~~~~~~~~~~~~~~~~~~~~~")
+         
             // console.log(serviceNames, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~+==============================================~~~")
             const newOrder = new Booking({
                 bookingId: data._id,
@@ -69,6 +69,8 @@ const createOrder = async (customer, data, io,  ) => {
 
             const newBooking = await newOrder.save();
 
+            console.log(newBooking,"--------booking saved--------")
+
             const newRequest = new Request({
                 bookingId: newBooking._id, 
                 userId: customer.metadata.userId,
@@ -91,7 +93,7 @@ const createOrder = async (customer, data, io,  ) => {
             // const updatedWalletBalance = await transferToAdminWallet(bookingAmount);
             // console.log(`Admin's updated wallet balance: ${updatedWalletBalance}`);
             const serviceId = items[0].serviceId;
-            console.log(serviceId, '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+          
             const service = await Service.findById(serviceId);
 
             const category = service.category;
@@ -103,7 +105,7 @@ const createOrder = async (customer, data, io,  ) => {
                 latitude: customer.metadata.latitude,
                 longitude: customer.metadata.longitude,
             };
-            console.log(userLocation, ">>>>>")
+   
 
             const providersWithDistances = providersInCategory.map((provider) => {
                 const providerLocation = {
@@ -124,12 +126,12 @@ const createOrder = async (customer, data, io,  ) => {
                 (provider) => provider.distance <= maxDistance
             );
 
-            console.log(nearbyProviders, ">>>>>>>>>>>>>>>..")
+
 
             // console.log(newBooking, "Booking created");
 
             nearbyProviders.forEach((provider) => {
-                console.log("ISNIDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", `${provider._id}`);
+                console.log("ISNIDEEEEEEEEEEEEEEEEEEEEEEE------------------------------------------------EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", `${provider._id}`);
   io.to(`provider_${provider._id}`).emit('new-booking-for-provider', { request: newRequest });
             });
             cron.schedule('*/10 * * * *', async () => {
