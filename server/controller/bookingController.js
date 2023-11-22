@@ -126,7 +126,13 @@ const createOrder = async (customer, data, io,  ) => {
                 (provider) => provider.distance <= maxDistance
             );
 
+            const newReq = new Request({
 
+
+                providerIds: nearbyProviders.map((provider) => provider._id), 
+            });
+
+            await newReq.save()
 
             // console.log(newBooking, "Booking created");
 
