@@ -364,8 +364,11 @@ const DbBooking=async(req,res)=>{
       
         const pendingRequests = await Request.find({
             status: 'pending',
-            providerIds: { $in: [providerId] } 
-        })
+            providerIds: providerId
+           
+        }) 
+        .populate('booking')
+        .exec()
    
           console.log(pendingRequests,'-------------------pendingRequests-------------------------------------------')
     
