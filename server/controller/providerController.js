@@ -366,8 +366,7 @@ const DbBooking=async(req,res)=>{
             status: 'pending',
             providerIds: { $in: [providerId] } 
         })
-        .populate('booking')
-        .exec();
+   
           console.log(pendingRequests,'-------------------pendingRequests-------------------------------------------')
     
         res.json(pendingRequests);
