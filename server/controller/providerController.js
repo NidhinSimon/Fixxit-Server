@@ -361,7 +361,7 @@ const DbBooking=async(req,res)=>{
 
     try {
        
-      
+      console.log("insideb tryyyyy")
         const pendingRequests = await Request.find({ status: 'pending', providerId })
           .populate('booking')
           .exec();
