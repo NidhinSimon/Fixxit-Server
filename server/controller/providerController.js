@@ -357,9 +357,11 @@ const cancelBooking = async (req, res) => {
 const DbBooking=async(req,res)=>{
     console.log("djdjdjdgdhgdhgdhgdhgdhgdhgdhgdhg")
     const { providerId } = req.params;
+    console.log("djdjdjdgdhgdhgdhgdhgdhgdhgdhgdhg",providerId)
 
     try {
       const requests = await Request.find({ providerId });
+      console.log(requests,'===')
       res.json(requests);
     } catch (error) {
       console.error(error);
