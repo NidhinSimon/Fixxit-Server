@@ -354,30 +354,38 @@ const cancelBooking = async (req, res) => {
     }
 };
 
-const DbBooking=async(req,res)=>{
-    console.log("djdjdjdgdhgdhgdhgdhgdhgdhgdhgdhg")
+const DbBooking = async (req, res) => {
+    console.log("djdjdjdgdhgdhgdhgdhgdhgdhgdhgdhg");
     const { providerId } = req.params;
-    console.log("........................................",providerId)
-    console.log("insideb tryyyyy")
+    console.log("........................................", providerId);
+    console.log("insideb tryyyyy");
     try {
-       
-      
-        const pendingRequests = await Request.find({
-            status: 'pending',
-            providerIds: providerId
-           
-        }) 
-        .populate('bookingId')
-
-   
-          console.log(pendingRequests,'-------------------pendingRequests-------------------------------------------')
-    
-        res.json(pendingRequests);
+      const pendingRequests = await Request.find({
+        status: 'pending',
+        providerIds: providerId,
+      })
+        .populate({
+          path: 'bookingId',
+          model: 'booking', // Assuming your booking model is named 'booking'
+          populate: {
+            path: 'userId',
+            model: 'Users', // Assuming your user model is named 'Users'
+          },
+        })
+        .exec();
+  
+      console.log(
+        pendingRequests,
+        '-------------------pendingRequests-------------------------------------------'
+      );
+  
+      res.json(pendingRequests);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-}
+  };
+  
 
 
 const serviceName = async (req, res) => {
