@@ -240,44 +240,61 @@ const getrequest = async (req, res) => {
 
 
 const acceptBooking = async (req, res) => {
-    console.log('LLL',req.body)
+    console.log('LLL', req.body);
     const { id } = req.params;
     const { providerId } = req.body;
 
-    console.log(providerId, '>>>>>>>>>', id)
+    console.log(providerId, '>>>>>>>>>', id);
 
     console.log("Booking ID:", id);
     console.log("Provider ID:", providerId);
 
     try {
-        const booking = await Booking.findById(id);
+        // Fetch pending booking requests
+        const pendingRequests = await Request.find({
+            status: 'pending',
+            providerIds: providerId,
+        })
+            .populate({
+                path: 'bookingId',
+                model: 'booking',
+                populate: {
+                    path: 'userId',
+                    model: 'Users',
+                },
+            })
+            .exec();
 
-        if (!booking) {
-            return res.status(404).json({ success: false, message: 'Booking not found' });
+        console.log("Pending Requests:", pendingRequests);
+
+        // Check if the booking you want to accept is among the pending requests
+        const bookingToAccept = pendingRequests.find(request => request.bookingId._id.toString() === id);
+
+        if (!bookingToAccept) {
+            return res.status(404).json({ success: false, message: 'Booking not found or not pending for this provider' });
         }
 
-        if (booking.status === 'accepted') {
-            res.json({ success: false, message: 'Booking is already accepted' });
-        }
+        // Update Booking model
+        bookingToAccept.bookingId.status = 'accepted';
+        bookingToAccept.bookingId.provider = providerId;
+        const updatedBooking = await bookingToAccept.bookingId.save();
 
-        booking.status = 'accepted';
-        booking.provider = providerId;
-        const b = await booking.save();
-        console.log(b, "::>>::>>::>>")
-        const provider = await Provider.findById(providerId)
-console.log(provider,".......................")
+        // Update Request model
+        bookingToAccept.status = 'accepted';
+        await bookingToAccept.save();
 
+        const provider = await Provider.findById(providerId);
+        console.log(provider, ".......................")
 
         io.emit('booking-accepted', {
-            booking: b, providerInfo: {
+            booking: updatedBooking, providerInfo: {
                 name: provider.name,
                 age: provider.age,
                 mobile: provider.mobile,
-
             }
         });
 
-        res.json({ success: true, updatedBooking: booking });
+        res.json({ success: true, updatedBooking });
     } catch (error) {
         console.error('Error accepting booking:', error);
         return res.status(500).json({ success: false, message: 'Error accepting booking' });
