@@ -374,24 +374,23 @@ const DbBooking = async (req, res) => {
         })
         .exec();
   
-      // Filter the results to only include bookings associated with the specific provider
-      const providerBookings = pendingRequests.filter(
-        (request) =>
-          request.providerIds &&
-          request.providerIds.includes(providerId)
-      );
+      // Extract only the booking objects from the results
+      const bookings = pendingRequests
+        .filter((request) => request.bookingId)
+        .map((request) => request.bookingId);
   
       console.log(
-        providerBookings,
-        '-------------------providerBookings-------------------------------------------'
+        bookings,
+        '-------------------bookings-------------------------------------------'
       );
   
-      res.json(providerBookings);
+      res.json(bookings);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+  
   
   
 
