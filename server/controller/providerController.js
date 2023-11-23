@@ -374,17 +374,25 @@ const DbBooking = async (req, res) => {
         })
         .exec();
   
-      console.log(
-        pendingRequests,
-        '-------------------pendingRequests-------------------------------------------'
+      // Filter the results to only include bookings associated with the specific provider
+      const providerBookings = pendingRequests.filter(
+        (request) =>
+          request.providerIds &&
+          request.providerIds.includes(providerId)
       );
   
-      res.json(pendingRequests);
+      console.log(
+        providerBookings,
+        '-------------------providerBookings-------------------------------------------'
+      );
+  
+      res.json(providerBookings);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+  
   
 
 
