@@ -289,7 +289,7 @@ const addtocart = async (req, res) => {
     console.log("Received cartData:", cartData);
     console.log("Received userId:", userId);
 
-D
+
     const user = await User.findById(userId);
     console.log("Found user:", user);
 
