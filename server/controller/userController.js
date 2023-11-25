@@ -285,10 +285,10 @@ const profileEdit = async (req, res) => {
 const addtocart = async (req, res) => {
   try {
     const { cartData, userId } = req.body;
-    console.log("Received cartData>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:", cartData);
-    console.log("Received userId<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<:", userId);
+    console.log("Received cartData:", cartData);
+    console.log("Received userId:", userId);
 
-    // Find the user by their ID
+D
     const user = await User.findById(userId);
     console.log("Found user:", user);
 
@@ -296,16 +296,16 @@ const addtocart = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Check if the item already exists in the cart
-    const existingCartItemIndex = user.cart.findIndex((item) => item.serviceId === cartData.serviceId);
 
-    if (existingCartItemIndex !== -1) {
-      // If the item already exists, replace it with the new one
-      user.cart[existingCartItemIndex] = cartData;
-    } else {
-      // If the item doesn't exist, add it to the cart
-      user.cart.push(cartData);
+    const existingCartItem = user.cart.find((item) => item.serviceId.equals(cartData.serviceId));
+
+    if (existingCartItem) {
+    
+      return res.status(400).json({ error: "Service already exists in the cart" });
     }
+
+  
+    user.cart.push(cartData);
 
     console.log("Updated user's cart:", user.cart);
 
@@ -320,6 +320,7 @@ const addtocart = async (req, res) => {
     res.status(500).json({ error: "An error occurred while updating the user's cart" });
   }
 };
+
 
 
 const getcart = async (req, res) => {
