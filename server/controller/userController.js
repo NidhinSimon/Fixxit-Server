@@ -283,29 +283,27 @@ const profileEdit = async (req, res) => {
 
 
 const addtocart = async (req, res) => {
-  console.log(req.body,'------')
+  console.log(req.body, '------');
   try {
     const { cartData, userId } = req.body;
     console.log("Received cartData:", cartData);
     console.log("Received userId:", userId);
 
-
     const user = await User.findById(userId);
-
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Check if the item already exists in the cart
+    const existingCartItemIndex = user.cart.findIndex(item => item.serviceId.equals(cartData.serviceId));
 
-    const existingCartItem = user.cart.find((item) => item.serviceId.equals(cartData.serviceId));
-
-    if (existingCartItem) {
-    console.log("inside exixitttnt")
-     res.status(400).json({ message: "Service already exists in the cart" });
+    if (existingCartItemIndex !== -1) {
+      // If the item already exists, you can choose to inform the client or just return
+      return res.status(400).json({ message: "Service already exists in the cart" });
     }
 
-  
+    // If the item doesn't exist, add it to the cart
     user.cart.push(cartData);
 
     console.log("Updated user's cart:", user.cart);
