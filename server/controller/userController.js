@@ -299,10 +299,10 @@ const addtocart = async (req, res) => {
 
 
     const existingCartItem = user.cart.find((item) => item.serviceId.equals(cartData.serviceId));
-console.log(existingCartItem,'----------------------------')
+
     if (existingCartItem) {
-    
-      return res.status(400).json({ message: "Service already exists in the cart" });
+    console.log("inside exixitttnt")
+     res.status(400).json({ message: "Service already exists in the cart" });
     }
 
   
