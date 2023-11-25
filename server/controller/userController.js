@@ -283,6 +283,7 @@ const profileEdit = async (req, res) => {
 
 
 const addtocart = async (req, res) => {
+  console.log(req.body,'------')
   try {
     const { cartData, userId } = req.body;
     console.log("Received cartData:", cartData);
