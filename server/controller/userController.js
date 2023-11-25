@@ -301,7 +301,7 @@ D
 
     if (existingCartItem) {
     
-      return res.status(400).json({ error: "Service already exists in the cart" });
+      return res.status(400).json({ message: "Service already exists in the cart" });
     }
 
   
