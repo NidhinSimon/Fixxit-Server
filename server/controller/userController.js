@@ -483,7 +483,7 @@ const addwishlist = async (req, res) => {
     console.log("dd");
     const { userId } = req.params;
     const { serviceId } = req.body;
-
+console.log(req.body,"--------------",req.params)
     const user = await User.findById(userId);
 
     if (!user) {
