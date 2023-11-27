@@ -478,10 +478,9 @@ const getAddress = async (req, res) => {
   }
 
 }
-
 const addwishlist = async (req, res) => {
   try {
-    console.log("dd")
+    console.log("dd");
     const { userId } = req.params;
     const { serviceId } = req.body;
 
@@ -491,9 +490,8 @@ const addwishlist = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-
     if (user.wishlist.includes(serviceId)) {
-      return res.status(400).json({ message: 'Service is already in the wishlist' });
+      return res.status(400).json({ message: 'This service is already in your wishlist' });
     }
 
     user.wishlist.push(serviceId);
@@ -505,6 +503,7 @@ const addwishlist = async (req, res) => {
     return res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 
 
